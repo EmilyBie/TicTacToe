@@ -1,0 +1,30 @@
+body {
+  background-color: black;
+  color:white;
+}
+.board {
+  text-align: center;
+  margin:30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.square {
+  width: 150px;
+  height: 150px;
+}
+
+.v {
+  border-left: 1px solid #FFF;
+  border-right: 1px solid #FFF;
+}
+
+.h {
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+}
+
+.scores {
+  display: inline-block;
+  margin:30px;
+  vertical-align: middle;
+}
