@@ -3,41 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
   <title>TicTacToe</title>
 </head>
 <body>
   <div class="board">
     <table>
         <tr id="row1">
-          <td class="square "></td>
-          <td class="square v"></td>
-          <td class="square"></td>
+          <td class="without-bg square"></td>
+          <td class="without-bg square v"></td>
+          <td class="without-bg square"></td>
         </tr>
-        <tr>
-          <td class="square h"></td>
-          <td class="square v h"></td>
-          <td class="square h"></td>
+        <tr id="row2">
+          <td class="without-bg square h"></td>
+          <td class="without-bg square v h"></td>
+          <td class="without-bg square h"></td>
         </tr>
-        <tr>
-          <td class="square"></td>
-          <td class="square v"></td>
-          <td class="square"></td>
+        <tr id="row3">
+          <td class="without-bg square"></td>
+          <td class="without-bg square v"></td>
+          <td class="without-bg square"></td>
         </tr>
       </table>  
   </div>
 
   <div class="scores">
     <ul>
-      <li>Player1:<span>0</span></li>
-      <li>Player2:<span>0</span></li>
-      <li>Tie: <span>0</span></li>
+      <li class="notCurrent">Player X:<span id="playerXWins">0</span></li>
+      <li class="notCurrent">Player O:<span id="playerOWins">0</span></li>
+      <li>Ties: <span id="ties">0</span></li>
     </ul>
   </div>
-
-  <div>Test branch</div>
-  <p>111</p>
-  <p>222</p>
-  
   <script type="text/javascript" src="scripts/app.js"></script>
 </body>
 </html>

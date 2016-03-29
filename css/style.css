@@ -1,6 +1,7 @@
 body {
-  background-color: black;
+  background-color: plum ;
   color:white;
+  font-family: 'Playfair Display', serif;
 }
 .board {
   text-align: center;
@@ -14,17 +15,61 @@ body {
 }
 
 .v {
-  border-left: 1px solid #FFF;
-  border-right: 1px solid #FFF;
+  border-left: 2px solid #FFF;
+  border-right: 2px solid #FFF;
 }
 
 .h {
-  border-top: 1px solid #FFF;
-  border-bottom: 1px solid #FFF;
+  border-top: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
 }
+
+.X-bg {
+  background: url('../images/playX.png') no-repeat;
+  background-size: 100% auto;
+}
+.O-bg {
+  background: url('../images/playO.png') no-repeat;
+  background-size: 100% auto;
+}
+.without-bg {
+  
+}
+
+td:hover {
+  background-color: orchid;
+}
+
 
 .scores {
   display: inline-block;
-  margin:30px;
+  margin:20px 20px 20px 50px;
   vertical-align: middle;
+}
+ul {
+  list-style: none;
+}
+li {
+  font-size: 1.5em;
+  margin:15px;
+}
+span {
+  font-size: 1.5em;
+}
+
+#playerXWins {
+  padding-left: 50px;
+}
+#playerOWins {
+  padding-left: 47px;
+}
+#ties {
+  padding-left: 87px;
+}
+
+.current {
+  color:cyan;
+}
+.notCurrent {
+  color: lavender;
 }
