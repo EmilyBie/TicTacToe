@@ -1,5 +1,6 @@
 console.log('tictactoe');
 var size = 3;
+var winSize = 3;
 var playerX = "X";
 var playerO = "O";
 var board = document.querySelector('.board');
@@ -19,14 +20,28 @@ var player = {
   startPlayer: playerX,
   currentPlayer: ""
 }
-var boardArray = [["","",""],["","",""],["","",""]];
-
+var boardArray = [];
 var scores = {
   Xwin: 0,
   Owin: 0,
   tie: 0
 }
+//initialize the boardArray
+var boardArrayInit = function() {
+  var newBoardArray = [];
+  for(var i=0;i<size;i++) {
+    var array = [];
+    for(var j=0; j<size;j++) {
+        array.push("");
+    }
+    newBoardArray.push(array);
+  }
+  return newBoardArray;
+}
 
+boardArray = boardArrayInit();
+
+//Local stroage to save scores
 var saveScores = function() {
   localStorage.setItem('Xwin',scores.Xwin);
   localStorage.setItem('Owin',scores.Owin);
@@ -63,8 +78,7 @@ try{
   }
 }
 
-
-
+//choose start player X or O
 var chooseStartPlayer = function() {
   var value = selectPlayer.options[selectPlayer.selectedIndex].value;
   if(value != "X" && value != "O") {
@@ -77,11 +91,12 @@ var chooseStartPlayer = function() {
 selectPlayer.addEventListener('change',chooseStartPlayer,false);
 
 var scanBoard = function() {
+  debugger
   var table = document.querySelector('table');
   var cells = table.getElementsByTagName('td');
   for(var i=0; i<cells.length;i++) {
-    var rowIndex = Math.floor(i/3);
-    var columnIndex = i%3;
+    var rowIndex = Math.floor(i/size);
+    var columnIndex = i%size;
     if(cells[i].classList.contains("X-bg")) {
         boardArray[rowIndex][columnIndex] = playerX;
     } else if(cells[i].classList.contains("O-bg")) {
@@ -91,40 +106,90 @@ var scanBoard = function() {
     }
   }
 }
+// winSize = size check wins
+// var checkWins = function(size,player,boardArray) {
+//   var countDiagonalDown = 0;
+//   var countDiagonalUp = 0;
+//   for(var i=0;i<boardArray.length;i++) {
+//     var countRow = 0;
+//     var countColumn = 0;
+//     for(var j=0;j<boardArray[i].length;j++) {
+//       if (boardArray[i][j] === player) {
+//         countRow++;
+//       }
+//       if(boardArray[j][i] === player) {
+//         countColumn ++;
+//       }
+//     }
+//     if(countRow === size) {
+//       return true;
+//     }
+//     if(countColumn === size) {
+//       return true;
+//     }
+//     if(boardArray[i][i] === player) {
+//       countDiagonalDown ++;
+//     }
+//     if(boardArray[i][size-i-1] === player) {
+//       countDiagonalUp ++;
+//     } 
+//   }
+//   if(countDiagonalDown === size || countDiagonalUp === size) {
+//     return true;
+//   } else {
+//     return false;
+//   }  
+// }
 
+//winSize = 3 check wins
 var checkWins = function(size,player,boardArray) {
-  var countDiagonalDown = 0;
-  var countDiagonalUp = 0;
+  debugger
+  //check diagonals
+  for(var i=2;i<boardArray.length;i++) {
+    for(var j=2; j<boardArray[i].length;j++) {
+      if((boardArray[i-2][j-2] === player) && (boardArray[i-1][j-1] === player) && (boardArray[i][j] === player)){
+        return true;
+      }
+    }
+  }
+  for(var i=2;i<boardArray.length;i++) {
+    for(var j=0; j<(boardArray[i].length-2);j++) {
+      if((boardArray[i][j] === player) && (boardArray[i-1][j+1]===player) && (boardArray[i-2][j+2] === player)) {
+        return true;
+      }
+    }
+  }
+
+  //check rows and columns
   for(var i=0;i<boardArray.length;i++) {
     var countRow = 0;
     var countColumn = 0;
     for(var j=0;j<boardArray[i].length;j++) {
+      if(countRow === winSize || countColumn === winSize) {
+        return true;
+      }
       if (boardArray[i][j] === player) {
         countRow++;
+      } else {
+        countRow = 0;
       }
       if(boardArray[j][i] === player) {
         countColumn ++;
+      } else {
+        countColumn = 0;
       }
     }
-    if(countRow === size) {
+    if(countRow === winSize) {
       return true;
     }
-    if(countColumn === size) {
+    if(countColumn === winSize) {
       return true;
     }
-    if(boardArray[i][i] === player) {
-      countDiagonalDown ++;
-    }
-    if(boardArray[i][size-i-1] === player) {
-      countDiagonalUp ++;
-    } 
   }
-  if(countDiagonalDown === size || countDiagonalUp === size) {
-    return true;
-  } else {
-    return false;
-  }  
+
+  return false; 
 }
+
 
 var isXWins = function() {
   return checkWins(size,playerX,boardArray);
@@ -132,6 +197,18 @@ var isXWins = function() {
 
 var isOWins = function() {
   return checkWins(size,playerO,boardArray);
+}
+
+var isBoardFull = function (boardArray) {
+  debugger
+  for(var i=0;i<boardArray.length;i++) {
+    for(var j=0; j<boardArray[i].length;j++) {
+      if(boardArray[i][j] === "") {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 var getWinner = function() {
@@ -144,21 +221,6 @@ var getWinner = function() {
   } else {
     return false;
   }  
-}
-
-var isBoardFull = function (boardArray) {
-  for(var i=0;i<boardArray.length;i++) {
-    for(var j=0; j<boardArray[i].length;j++) {
-      if(boardArray[i][j] === "") {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-var initBoardArray = function() {
-  boardArray = [["","",""],["","",""],["","",""]];
 }
 
 var clearBoard = function() {
@@ -177,7 +239,11 @@ var clearBoard = function() {
       tds[i].classList.add("without-bg");
     }
   }
-  initBoardArray();
+  for(var i=0;i<boardArray.length;i++) {
+    for(var j=0;j<boardArray[i].length;j++) {
+      boardArray[i][j]="";
+    }
+  }
 
 }
 var makeBoardNoHover = function () {
@@ -216,7 +282,6 @@ var gameOverDisplay = function(winner) {
 }
 
 board.addEventListener('click',function(){
-  // debugger
   //if there is no winner 
   if(getWinner() === false) {
       if(event.target.tagName === 'TD') {
@@ -261,7 +326,6 @@ board.addEventListener('click',function(){
           player.currentPlayer = "";
           startAgainBtnDisplay();
           winnerMsgDisplay(winner);
-          // scoresCache();
         }
       }
     }
@@ -294,26 +358,59 @@ clearBtn.addEventListener('click',function(){
   initScoresDisplay();
 });
 
-var changeBoard = function(newSize) {
+//change board size 3*3, 4*4, 5*5
+var boardSizeIncrease = function(newSize) {
+  var sizeIncrease = newSize -size;
+  for(var i=0;i<sizeIncrease;i++) {
+    var row = table.insertRow(0);
+    for(var j=0;j<size;j++) {
+      var cell = row.insertCell(j);
+      cell.className = "without-bg square";
+    }
+  }
+  var cellIndex = size;
+  for(var i=0;i<sizeIncrease;i++) {
+      for(var j=0;j<newSize;j++) {
+        var row = table.rows[j];
+        var cell = row.insertCell(cellIndex);
+        cell.className = "without-bg square";
+      }
+      cellIndex++;
+  }
+}
 
+var boardSizeDecrease = function(newSize) {
+  var sizeDecrease = size - newSize;
+  for(var i=0;i<sizeDecrease;i++) {
+    table.deleteRow(0);
+  }
+  var cellIndex = size-1;
+  for(var i=0; i<sizeDecrease;i++) {
+    for(var j=0;j<newSize;j++) {
+      var row = table.rows[j];
+      row.deleteCell(cellIndex);
+    }
+    cellIndex--;
+  }
+}
+var changeBoard = function(newSize) {
+    if(newSize > size) {
+      //add rows and cells
+      boardSizeIncrease(newSize);   
+    } else {
+      //delete rows and cells
+      boardSizeDecrease(newSize);
+    }
+    size = newSize;
+    boardArray = boardArrayInit();
 }
 
 var updateBoardSize = function() {
-  //check if the game is started and not end, selectBoardSize can not change
-  var isGameOver;
-  if(getWinner() === false) {
-    isGameOver = false;
-    alert('You are in the middle of a game, cannot change board size');
-    return;
-  } else {
-    isGameOver = true;
-  }
-  //while game is over, user can change board size
-  if(isGameOver) {
-    var newSize =  selectBoardSize.options[selectBoardSize.selectedIndex].value;
-    //pass newSize to change html board
-
-  }
+  //restart game
+  gameStartAgain();
+  var newSize =  Number(selectBoardSize.options[selectBoardSize.selectedIndex].value);
+  //pass newSize to change board size
+  changeBoard(newSize);
 }
 selectBoardSize.addEventListener('change',updateBoardSize,false);
 

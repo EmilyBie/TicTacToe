@@ -2,6 +2,7 @@ body {
   background-color: plum ;
   color:white;
   font-family: 'Playfair Display', serif;
+  text-align: center;
 }
 h1 {
   color: white;
@@ -9,31 +10,25 @@ h1 {
   font-size: 48px;
 }
 header {
-  /*background-color: orchid;*/
   color: black;
   text-align: center;
-  margin:0px 0px 20px 0px;
+  margin:0px;
 
 }
 .board {
   text-align: center;
-  margin:30px;
+  margin:20px 0px 0px 20px;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .square {
-  width: 150px;
-  height: 150px;
-}
-
-.v {
-  border-left: 3px solid #FFF;
-  border-right: 3px solid #FFF;
-}
-
-.h {
-  border-top: 3px solid #FFF;
-  border-bottom: 3px solid #FFF;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  border:3px solid #FFF;
+  -moz-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .X-bg {
@@ -58,8 +53,8 @@ td:not(.not-hover):hover {
 
 .scores {
   display: inline-block;
-  margin:20px 20px 20px 50px;
-  vertical-align: middle;
+  margin:20px 20px 20px 0px;
+  vertical-align: top;
 }
 #slectBoardSize {
   width: 73%;
@@ -74,7 +69,7 @@ td:not(.not-hover):hover {
 .clearDiv {
   display: inline-block;
   vertical-align: middle;
-  margin-left: -70px;
+  margin-left: 0px;
 }
 select {
   line-height: 1;
@@ -163,5 +158,19 @@ span {
   font-size: 2em;
   color: orangered ;
   text-shadow: 1px 1px 4px #EEEEEE;
+}
+
+@media(max-width: 50em) {
+  .scores {
+    display: block;
+  }
+  #whoWinsMsg {
+    font-size: 1.5em;
+    margin-left: 20px;
+    text-align: center;
+  }
+  #startAgain {
+    margin-left:20px;
+  }
 }
 
