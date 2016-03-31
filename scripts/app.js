@@ -91,7 +91,6 @@ var chooseStartPlayer = function() {
 selectPlayer.addEventListener('change',chooseStartPlayer,false);
 
 var scanBoard = function() {
-  debugger
   var table = document.querySelector('table');
   var cells = table.getElementsByTagName('td');
   for(var i=0; i<cells.length;i++) {
@@ -106,44 +105,9 @@ var scanBoard = function() {
     }
   }
 }
-// winSize = size check wins
-// var checkWins = function(size,player,boardArray) {
-//   var countDiagonalDown = 0;
-//   var countDiagonalUp = 0;
-//   for(var i=0;i<boardArray.length;i++) {
-//     var countRow = 0;
-//     var countColumn = 0;
-//     for(var j=0;j<boardArray[i].length;j++) {
-//       if (boardArray[i][j] === player) {
-//         countRow++;
-//       }
-//       if(boardArray[j][i] === player) {
-//         countColumn ++;
-//       }
-//     }
-//     if(countRow === size) {
-//       return true;
-//     }
-//     if(countColumn === size) {
-//       return true;
-//     }
-//     if(boardArray[i][i] === player) {
-//       countDiagonalDown ++;
-//     }
-//     if(boardArray[i][size-i-1] === player) {
-//       countDiagonalUp ++;
-//     } 
-//   }
-//   if(countDiagonalDown === size || countDiagonalUp === size) {
-//     return true;
-//   } else {
-//     return false;
-//   }  
-// }
 
 //winSize = 3 check wins
 var checkWins = function(size,player,boardArray) {
-  debugger
   //check diagonals
   for(var i=2;i<boardArray.length;i++) {
     for(var j=2; j<boardArray[i].length;j++) {
@@ -200,7 +164,6 @@ var isOWins = function() {
 }
 
 var isBoardFull = function (boardArray) {
-  debugger
   for(var i=0;i<boardArray.length;i++) {
     for(var j=0; j<boardArray[i].length;j++) {
       if(boardArray[i][j] === "") {
@@ -358,6 +321,37 @@ clearBtn.addEventListener('click',function(){
   initScoresDisplay();
 });
 
+//when window.innerWidth become smaller, change the board width and height
+var changeSquareWidth = function() {
+  var width = window.innerWidth;
+  var tds = document.querySelectorAll('TD');
+  for(var i=0;i<tds.length;i++) {
+    if(width <= 550) {
+      if(size === 4 ) {
+        tds[i].style.height = "80px";
+        tds[i].style.width = "80px";
+      } else if(size === 5) {
+        tds[i].style.height = "65px";
+        tds[i].style.width = "65px";
+      }
+    } else if(width <= 650) {
+      if(size === 5) {
+        tds[i].style.height = "80px";
+        tds[i].style.width = "80px";
+      }
+    } else {
+      if(size === 5) {
+        tds[i].style.height = "85px";
+        tds[i].style.width = "85px";
+      } else {
+        tds[i].style.height = "100px";
+        tds[i].style.width = "100px";
+      } 
+    }   
+  }  
+}
+window.onresize = changeSquareWidth;
+
 //change board size 3*3, 4*4, 5*5
 var boardSizeIncrease = function(newSize) {
   var sizeIncrease = newSize -size;
@@ -403,6 +397,7 @@ var changeBoard = function(newSize) {
     }
     size = newSize;
     boardArray = boardArrayInit();
+    changeSquareWidth();
 }
 
 var updateBoardSize = function() {

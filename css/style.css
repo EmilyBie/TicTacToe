@@ -32,11 +32,11 @@ header {
 }
 
 .X-bg {
-  background: url('../images/playX.png') no-repeat;
+  background: url('../images/playX.png') no-repeat center center;
   background-size: 100% auto;
 }
 .O-bg {
-  background: url('../images/playO.png') no-repeat;
+  background: url('../images/playO.png') no-repeat center center;
   background-size: 100% auto;
 }
 .without-bg {
@@ -172,5 +172,11 @@ span {
   #startAgain {
     margin-left:20px;
   }
+  #clearBtn {
+    margin-top: 7px;
+  }
 }
+
+
+
 
