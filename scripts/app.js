@@ -28,7 +28,7 @@ var scores = {
   Owin: 0,
   tie: 0
 }
-//initialize the boardArray
+//==========initialize the boardArray===========
 var boardArrayInit = function() {
   var newBoardArray = [];
   for(var i=0;i<size;i++) {
@@ -43,7 +43,7 @@ var boardArrayInit = function() {
 
 boardArray = boardArrayInit();
 
-//Local stroage to save scores
+//===============Local stroage to save scores===========
 var saveScores = function() {
   localStorage.setItem('Xwin',scores.Xwin);
   localStorage.setItem('Owin',scores.Owin);
@@ -61,16 +61,14 @@ var getLocalStorage = function() {
     scores.tie = localStorage.getItem('tie');
   }
 }
-
+//get local storage when refresh page
 var initWebpage = function() {
   getLocalStorage();
   playerXWinsTimes.innerHTML = scores.Xwin; 
   playerOWinsTimes.innerHTML = scores.Owin;
   tiesTimes.innerHTML = scores.tie;
 }
-
 initWebpage();
-
 try{
   setInterval(saveScores,1000);
 } catch(e) {
@@ -80,7 +78,7 @@ try{
   }
 }
 
-//choose start player X or O
+//===============choose start player X or O ===============
 var chooseStartPlayer = function() {
   var value = selectPlayer.options[selectPlayer.selectedIndex].value;
   if(value != "X" && value != "O") {
@@ -92,7 +90,7 @@ var chooseStartPlayer = function() {
 
 selectPlayer.addEventListener('change',chooseStartPlayer,false);
 
-//choose board style 
+//=================choose board style =================
 var changeBoardStyle = function() {
   gameStartAgain();
   var newStyle = selectBoardStyle.options[selectBoardStyle.selectedIndex].value;
@@ -101,6 +99,7 @@ var changeBoardStyle = function() {
 
 selectBoardStyle.addEventListener('change',changeBoardStyle,false);
 
+//=========scan board and update the boardArray===========
 var scanBoard = function() {
   var table = document.querySelector('table');
   var cells = table.getElementsByTagName('td');
@@ -117,7 +116,7 @@ var scanBoard = function() {
   }
 }
 
-//winSize = 3 check wins
+//============= winSize = 3 check wins============
 var checkWins = function(size,player,boardArray) {
   //check diagonals
   for(var i=2;i<boardArray.length;i++) {
@@ -197,6 +196,7 @@ var getWinner = function() {
   }  
 }
 
+// ===========clear board when start again,change board size or board style====
 var clearBoard = function() {
   var tds = document.querySelectorAll('td');
   for(var i=0;i<tds.length;i++) {
@@ -236,6 +236,7 @@ var clearBoard = function() {
   }
 
 }
+//======== disable hover of a square when it is clicked or game ends====
 var makeBoardNoHover = function () {
   var tds = document.querySelectorAll('td');
   for(var i=0; i<tds.length;i++) {
@@ -246,6 +247,7 @@ var makeBoardNoHover = function () {
   }
 }
 
+//============= start again method =================
 var startAgainBtnDisplay = function() {
   if(getWinner()) {
     startAgainBtn.style.visibility = "visible";
@@ -253,7 +255,7 @@ var startAgainBtnDisplay = function() {
     startAgain.style.visibility = "hidden";
   }
 }
-
+//============= display winner messages =============
 var winnerMsgDisplay = function(winner) {
   winMsg.style.visibility = "visible";
   if(winner === "X") {
@@ -265,6 +267,7 @@ var winnerMsgDisplay = function(winner) {
   }
 }
 
+// ============== click board event ================
 board.addEventListener('click',function(){
   //if there is no winner
   if(getWinner() === false) {
@@ -386,7 +389,7 @@ var changeSquareWidth = function() {
 }
 window.onresize = changeSquareWidth;
 
-//change board size 3*3, 4*4, 5*5
+//==============change board size 3*3, 4*4, 5*5===============
 var boardSizeIncrease = function(newSize) {
   var sizeIncrease = newSize -size;
   for(var i=0;i<sizeIncrease;i++) {
@@ -442,14 +445,3 @@ var updateBoardSize = function() {
   changeBoard(newSize);
 }
 selectBoardSize.addEventListener('change',updateBoardSize,false);
-
-
-
-
-
-
-
-
-
-
-
