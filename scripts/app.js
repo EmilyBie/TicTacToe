@@ -6,6 +6,8 @@ var playerO = "O";
 var board = document.querySelector('.board');
 var table = document.querySelector('table');
 var selectBoardSize = document.getElementById('slectBoardSize');
+var selectBoardStyle = document.getElementById('customizeTokens');
+var boardStyle = "classic";
 var list = document.querySelectorAll('ul li');
 var playerXWinsTimes = document.getElementById('playerXWins');
 var playerOWinsTimes = document.getElementById('playerOWins');
@@ -90,15 +92,24 @@ var chooseStartPlayer = function() {
 
 selectPlayer.addEventListener('change',chooseStartPlayer,false);
 
+//choose board style 
+var changeBoardStyle = function() {
+  gameStartAgain();
+  var newStyle = selectBoardStyle.options[selectBoardStyle.selectedIndex].value;
+  boardStyle = newStyle;
+}
+
+selectBoardStyle.addEventListener('change',changeBoardStyle,false);
+
 var scanBoard = function() {
   var table = document.querySelector('table');
   var cells = table.getElementsByTagName('td');
   for(var i=0; i<cells.length;i++) {
     var rowIndex = Math.floor(i/size);
     var columnIndex = i%size;
-    if(cells[i].classList.contains("X-bg")) {
+    if(cells[i].classList.contains("X-bg") || cells[i].classList.contains("X-cake-bg") ||cells[i].classList.contains("cat-bg") ) {
         boardArray[rowIndex][columnIndex] = playerX;
-    } else if(cells[i].classList.contains("O-bg")) {
+    } else if(cells[i].classList.contains("O-bg") || cells[i].classList.contains("O-cake-bg") ||cells[i].classList.contains("panda-bg")) {
         boardArray[rowIndex][columnIndex] = playerO;
     } else {
         boardArray[rowIndex][columnIndex] = "";
@@ -189,15 +200,31 @@ var getWinner = function() {
 var clearBoard = function() {
   var tds = document.querySelectorAll('td');
   for(var i=0;i<tds.length;i++) {
-    var isXbg = tds[i].classList.contains("X-bg");
-    var isObg = tds[i].classList.contains("O-bg");
+    var isXbg = tds[i].classList.contains("X-bg") || tds[i].classList.contains("X-cake-bg") || tds[i].classList.contains("cat-bg");
+    var isObg = tds[i].classList.contains("O-bg")  || tds[i].classList.contains("O-cake-bg") || tds[i].classList.contains("panda-bg");
     if(isXbg) {
-      tds[i].classList.remove("X-bg");
+      if(tds[i].classList.contains("X-bg")) {
+        tds[i].classList.remove("X-bg");
+      }
+      if(tds[i].classList.contains("X-cake-bg")) {
+        tds[i].classList.remove("X-cake-bg");
+      }
+      if(tds[i].classList.contains("cat-bg")) {
+        tds[i].classList.remove("cat-bg");
+      }
       tds[i].classList.remove('not-hover');
       tds[i].classList.add("without-bg");
     }
     if(isObg) {
-      tds[i].classList.remove("O-bg");
+      if(tds[i].classList.contains("O-bg")) {
+        tds[i].classList.remove("O-bg");
+      }
+      if(tds[i].classList.contains("O-cake-bg")) {
+        tds[i].classList.remove("O-cake-bg");
+      }
+      if(tds[i].classList.contains("panda-bg")) {
+        tds[i].classList.remove("panda-bg");
+      }
       tds[i].classList.remove('not-hover');
       tds[i].classList.add("without-bg");
     }
@@ -238,14 +265,8 @@ var winnerMsgDisplay = function(winner) {
   }
 }
 
-var gameOverDisplay = function(winner) {
-  if(winner === playerX) {
-
-  }
-}
-
 board.addEventListener('click',function(){
-  //if there is no winner 
+  //if there is no winner
   if(getWinner() === false) {
       if(event.target.tagName === 'TD') {
       if(event.target.classList.contains("without-bg")) {
@@ -254,13 +275,26 @@ board.addEventListener('click',function(){
           player.currentPlayer = player.startPlayer;
         } 
         if(player.currentPlayer === playerX) {
-          event.target.classList.add("X-bg");
+          if(boardStyle === "classic") {
+            event.target.classList.add("X-bg");
+          } else if(boardStyle === "cake") {
+            event.target.classList.add("X-cake-bg");
+          } else {
+            event.target.classList.add("cat-bg");
+          }
+          
           event.target.classList.add('not-hover');
           list[0].className = "current";
           list[1].className = "notCurrent";
           player.currentPlayer = playerO;
         } else if(player.currentPlayer === playerO) {
-          event.target.classList.add("O-bg");
+          if(boardStyle === "classic") {
+            event.target.classList.add("O-bg");
+          } else if(boardStyle === "cake") {
+            event.target.classList.add("O-cake-bg");
+          } else {
+            event.target.classList.add("panda-bg");
+          }
           event.target.classList.add('not-hover');
           list[0].className = "notCurrent";
           list[1].className = "current";
@@ -408,6 +442,8 @@ var updateBoardSize = function() {
   changeBoard(newSize);
 }
 selectBoardSize.addEventListener('change',updateBoardSize,false);
+
+
 
 
 

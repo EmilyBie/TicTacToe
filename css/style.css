@@ -39,6 +39,22 @@ header {
   background: url('../images/playO.png') no-repeat center center;
   background-size: 100% auto;
 }
+.X-cake-bg {
+  background: url('../images/cake-X.gif') no-repeat center center;
+  background-size: 100% auto;
+}
+.O-cake-bg {
+  background: url('../images/cake-O.gif') no-repeat center center;
+  background-size: 100% auto;
+}
+.cat-bg {
+  background: url('../images/cat-bg.gif') no-repeat center center;
+  background-size: 100% auto;
+}
+.panda-bg {
+  background: url('../images/panda-bg.gif') no-repeat center center;
+  background-size: 100% auto;
+}
 .without-bg {
   
 }
@@ -57,19 +73,33 @@ td:not(.not-hover):hover {
   vertical-align: top;
 }
 #slectBoardSize {
-  width: 73%;
+  width: 55%;
   height: 150%;
   margin-bottom: 7px;
+}
+
+#customizeTokens {
+  width: 55%;
+  height: 150%;
+  margin-bottom: 7px;
+}
+#selectPlayer {
+  width: 55%;
+  height: 150%;
 }
 .selectDiv {
   display: inline-block;
   margin-left: 20px;
   vertical-align: middle;
+  padding:0px;
 }
 .clearDiv {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 0px;
+  margin:0px;
+  padding:0px;
+  position: relative;
+  left:-70px;
 }
 select {
   line-height: 1;
@@ -163,6 +193,7 @@ span {
 @media(max-width: 50em) {
   .scores {
     display: block;
+    text-align: center;
   }
   #whoWinsMsg {
     font-size: 1.5em;
@@ -174,6 +205,8 @@ span {
   }
   #clearBtn {
     margin-top: 7px;
+    position: relative;
+    left:90px;
   }
 }
 
