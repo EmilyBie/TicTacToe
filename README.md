@@ -17,7 +17,7 @@ ________________________________________________________________________________
 * Switch turns between X and O
 * User can change the game board size to 3, 4 or 5
 * Player who firstly get three in a row will win the game
-* User can player several times and the scores will be stored in the localStorage, only "Clear Record" button can reset the scores.
+* User can play several times and the scores will be stored in the localStorage, only "Clear Record" button can reset the scores.
 
 
 ___________________________________________________________________________________
@@ -31,9 +31,9 @@ ________________________________________________________________________________
 
 ### Development Process
 
-* Use html and css to design this game
+* Use html and css to design this game page
 * Figure out how to get the winner and display it
-* Count the winings and persist to lacal data
+* Count the winnings and persist to lacal data
 * change board size: board size change visually and logically.
 * find bugs and fix, find new bugs then fix,.......
 
