@@ -5,7 +5,7 @@ var playerX = "X";
 var playerO = "O";
 var board = document.querySelector('.board');
 var table = document.querySelector('table');
-var selectBoardSize = document.getElementById('slectBoardSize');
+var selectBoardSize = document.getElementById('selectBoardSize');
 var selectBoardStyle = document.getElementById('customizeTokens');
 var boardStyle = "classic";
 var list = document.querySelectorAll('ul li');
@@ -212,9 +212,8 @@ var clearBoard = function() {
       if(tds[i].classList.contains("cat-bg")) {
         tds[i].classList.remove("cat-bg");
       }
-      tds[i].classList.remove('not-hover');
       tds[i].classList.add("without-bg");
-    }
+    } 
     if(isObg) {
       if(tds[i].classList.contains("O-bg")) {
         tds[i].classList.remove("O-bg");
@@ -225,9 +224,9 @@ var clearBoard = function() {
       if(tds[i].classList.contains("panda-bg")) {
         tds[i].classList.remove("panda-bg");
       }
-      tds[i].classList.remove('not-hover');
       tds[i].classList.add("without-bg");
     }
+    tds[i].classList.remove('not-hover');
   }
   for(var i=0;i<boardArray.length;i++) {
     for(var j=0;j<boardArray[i].length;j++) {
