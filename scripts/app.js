@@ -14,7 +14,7 @@ var playerOWinsTimes = document.getElementById('playerOWins');
 var tiesTimes = document.getElementById('ties'); 
 var selectPlayer = document.getElementById('selectPlayer');
 var startAgainBtn = document.getElementById('startAgain');
-startAgain.style.visibility = "hidden";
+startAgainBtn.style.visibility = "hidden";
 var winMsg = document.getElementById('whoWinsMsg');
 winMsg.style.visibility = "hidden";
 var clearBtn = document.getElementById('clearBtn');
@@ -251,7 +251,7 @@ var startAgainBtnDisplay = function() {
   if(getWinner()) {
     startAgainBtn.style.visibility = "visible";
   } else {
-    startAgain.style.visibility = "hidden";
+    startAgainBtn.style.visibility = "hidden";
   }
 }
 //============= display winner messages =============
